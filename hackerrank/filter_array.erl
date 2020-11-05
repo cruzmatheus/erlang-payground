@@ -6,10 +6,10 @@ main(_) ->
   Result = lists:reverse(lists:filter(fun(E) -> E < Min end, List)),
   print(Result).
 
-read_input(T) ->
+read_input(Acc) ->
   case io:fread("","~d") of
-    {ok, [H]} -> read_input([H|T]);
-    _ -> T
+    {ok, [H]} -> read_input([H|Acc]);
+    _ -> Acc
   end.
 
 print(List) ->
