@@ -4,8 +4,8 @@
 start_critic() -> spawn(?MODULE, restarter, []).
 
 restarter() ->
-  process_flag(trap_exit, true), % This acts like a monitor which will restart the process
-  Pid = spawn_link(?MODULE, critic, []), % Will run on separated process
+  process_flag(trap_exit, true), % Exit signals arriving to a process are converted to {'EXIT', From, Reason} messages.
+  Pid = spawn_link(?MODULE, critic, []), % Will run on separated process. Restarters and Critics processes will be tied together
   register(critic, Pid), % give the process a name
   receive
     {'EXIT', Pid, normal} -> % not a crash
